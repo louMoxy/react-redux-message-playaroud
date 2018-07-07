@@ -1,14 +1,15 @@
 import React from "react";
+import { connect } from 'react-redux';
 import "./User.css";
-import store from '../store';
 import {setActiveUserId} from '../actions';
 
-function handleUserClick({ user_id }) {
-  store.dispatch(setActiveUserId(user_id));
-}
-
-const User = ({ user }) => {
+const User = ({ dispatch, user }) => {
   const { name, profile_pic, status } = user;
+
+  const handleUserClick = user => {
+    dispatch(setActiveUserId(user.user_id));
+  }
+
   return (
     <div className="User" onClick={handleUserClick.bind(null, user)}>
       <img src={profile_pic} alt={name} className="User__pic" />
@@ -20,4 +21,5 @@ const User = ({ user }) => {
   );
 };
 
-export default User;
+export default connect()(User);
+
