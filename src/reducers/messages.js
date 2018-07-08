@@ -1,7 +1,7 @@
 import _ from 'lodash';
 
 import { getMessages } from "../static-data";
-import { SEND_MESSAGE, EDITING_MESSAGE, EDIT_MESSAGE } from "../constants/action-types";
+import { SEND_MESSAGE, EDITING_MESSAGE, EDIT_MESSAGE, DELETE_MESSAGE } from "../constants/action-types";
 
 export default (state = getMessages(10), action) => {
     switch(action.type){
@@ -41,6 +41,17 @@ export default (state = getMessages(10), action) => {
                   ...state, 
                   editingMessage: action.payload
               }
+        case DELETE_MESSAGE:{
+            const { number, activeUserID } = action.payload;
+            const userMessages = state[activeUserID];
+            const messages = _.omit(userMessages, [number]);
+            return {
+                ...state,
+                [activeUserID]: {
+                    ...messages
+                  }
+            }
+        }
         default:
             return state;
     }

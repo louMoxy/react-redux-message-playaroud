@@ -17,6 +17,7 @@ const ChatWindow = ({ value, contacts, messages, activeUserId }) => {
       <Chats
         messages={_.values(activeMessages)}
         editingMessage={editingMessage}
+        activeUserID={activeUser.user_id}
       />
       <MessageInput value={value} />
     </div>

@@ -1,19 +1,23 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { setTypingValue, editingNumber } from "../actions";
+import { setTypingValue, editingNumber, deleteMessage } from "../actions";
 import "./Chats.css";
 
-const Chat = ({ message, messageClicked, editing }) => {
+const Chat = ({ message, messageClicked, editing, crossClicked }) => {
   const { text, is_user_msg } = message;
   return (
-    <span
+    <div
       className={`Chat ${is_user_msg ? "is-user-msg" : ""} ${
         editing ? "is-editing" : ""
       }`}
-      onClick={messageClicked}
     >
-      {text}
-    </span>
+      {is_user_msg ? (
+        <div onClick={crossClicked} className="delete">
+          X
+        </div>
+      ) : null}
+      <span onClick={messageClicked}>{text}</span>
+    </div>
   );
 };
 
@@ -28,6 +32,10 @@ class Chats extends Component {
       this.props.dispatch(editingNumber(message.number));
       this.props.dispatch(setTypingValue(message.text));
     }
+  }
+
+  crossClicked(message, activeUserID) {
+    this.props.dispatch(deleteMessage(activeUserID, message.number));
   }
 
   scrollToBottom() {
@@ -51,6 +59,11 @@ class Chats extends Component {
             message={message}
             key={message.number}
             messageClicked={this.messageClicked.bind(this, message)}
+            crossClicked={this.crossClicked.bind(
+              this,
+              message,
+              this.props.activeUserID
+            )}
           />
         ))}
       </div>
