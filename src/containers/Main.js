@@ -6,9 +6,9 @@ import ChatWindow from "./ChatWindow";
 const Main = ({ user, activeUserId }) => {
   const renderMainContent = () => {
     if (!activeUserId) {
-      return <Empty user={user} activeUserId={activeUserId} />;
+      return <Empty user={user}/>;
     } else {
-      return <ChatWindow activeUserId={activeUserId} />;
+      return <ChatWindow activeUserId={activeUserId} user={user} />;
     }
   };
   return <main className="main">{renderMainContent()}</main>;
