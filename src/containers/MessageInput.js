@@ -1,16 +1,21 @@
 import React from "react";
 import { connect } from 'react-redux';
-import { setTypingValue, sendMessage } from "../actions";
+import { setTypingValue, sendMessage, editMessage, editingNumber } from "../actions";
 import "./MessageInput.css";
 
-const MessageInput = ({ typing, activeUserId, dispatch, value }) => {
+const MessageInput = ({ typing, activeUserId, dispatch, value, editingMessage }) => {
     const handleChange = e => {
         dispatch(setTypingValue(e.target.value));
     };
 
     const handleSubmit = e => {
         e.preventDefault();
-        dispatch(sendMessage(typing, activeUserId));
+        if(Number.isInteger(editingMessage)) {
+            dispatch(editMessage(typing, activeUserId, editingMessage));
+            dispatch(editingNumber(''));
+        } else {
+            dispatch(sendMessage(typing, activeUserId));
+        }
     }
 
     return (
@@ -25,11 +30,13 @@ const MessageInput = ({ typing, activeUserId, dispatch, value }) => {
     );
 };
 
-const mapStateToProps = state => (
+const mapStateToProps = state => {
+    return(
     {
         typing: state.typing,
-        activeUserId: state.activeUserId
+        activeUserId: state.activeUserId,
+        editingMessage: state.messages.editingMessage
     }
-  );
+  )};
 
 export default connect(mapStateToProps)(MessageInput);

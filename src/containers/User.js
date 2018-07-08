@@ -1,13 +1,14 @@
 import React from "react";
 import { connect } from 'react-redux';
 import "./User.css";
-import {setActiveUserId} from '../actions';
+import {setActiveUserId, editingNumber} from '../actions';
 
 const User = ({ dispatch, user }) => {
   const { name, profile_pic, status } = user;
 
   const handleUserClick = user => {
     dispatch(setActiveUserId(user.user_id));
+    dispatch(editingNumber(''));
   }
 
   return (
