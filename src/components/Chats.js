@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { setTypingValue, editingNumber, deleteMessage } from "../actions";
+import { CSSTransition, TransitionGroup } from "react-transition-group";
 import "./Chats.css";
 
 const Chat = ({ message, messageClicked, editing, crossClicked }) => {
@@ -53,19 +54,29 @@ class Chats extends Component {
   render() {
     return (
       <div className="Chats" ref={this.chatsRef}>
-        {this.props.messages.map(message => (
-          <Chat
-            editing={this.props.editingMessage === message.number}
-            message={message}
-            key={message.number}
-            messageClicked={this.messageClicked.bind(this, message)}
-            crossClicked={this.crossClicked.bind(
-              this,
-              message,
-              this.props.activeUserID
-            )}
-          />
-        ))}
+        <TransitionGroup>
+          {this.props.messages.map(message => (
+            <CSSTransition
+              in={true}
+              timeout={800}
+              classNames="message"
+              unmountOnExit
+              key={message.number}
+            >
+              <Chat
+                editing={this.props.editingMessage === message.number}
+                message={message}
+                key={message.number}
+                messageClicked={this.messageClicked.bind(this, message)}
+                crossClicked={this.crossClicked.bind(
+                  this,
+                  message,
+                  this.props.activeUserID
+                )}
+              />
+            </CSSTransition>
+          ))}
+        </TransitionGroup>
       </div>
     );
   }
