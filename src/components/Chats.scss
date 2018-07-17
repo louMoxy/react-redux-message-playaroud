@@ -7,12 +7,15 @@
   margin: 0 auto;
   overflow-y: auto;
   border-right: solid 3px grey;
-  padding-right: 25px; }
-  .Chats > div {
-    width: 100%; }
-  .Chats::-webkit-scrollbar {
+  padding-right: 25px;
+  > div {
+    width: 100%; 
+  }
+  &::-webkit-scrollbar { 
     display: none;
-    width: 0px; }
+    width: 0px;
+}
+}
 
 .Chat {
   margin: 1rem 0;
@@ -23,13 +26,13 @@
   border-radius: 20px;
   border-top-left-radius: 0;
   transition: background 0.5s;
-  position: relative; }
-  .Chat.is-user-msg {
+  position: relative;
+  &.is-user-msg {
     margin-left: auto;
     background: #2b2c33;
     border-radius: 20px;
-    border-top-right-radius: 0; }
-    .Chat.is-user-msg:after {
+    border-top-right-radius: 0;
+    &:after {
       content: '';
       position: absolute;
       height: 25px;
@@ -38,18 +41,23 @@
       top: 50%;
       transform: translateY(-50%);
       right: -40px;
-      border-radius: 50%; }
-  .Chat:not(.is-user-msg) {
-    margin-top: 40px; }
-  .Chat .msg_profile {
+      border-radius: 50%;
+    }
+  }
+  &:not(.is-user-msg) {
+    margin-top: 40px;
+  }
+  .msg_profile {
     border-radius: 50%;
     position: absolute;
     height: 40px;
     left: 0;
-    top: -30px; }
-  .Chat.is-editing {
-    background: #21B6A8; }
-  .Chat .delete {
+    top: -30px;
+  }
+  &.is-editing {
+    background: #21B6A8;
+  }
+  .delete {
     position: absolute;
     top: -12px;
     background: linear-gradient(90deg, #1986d8, #7b9cc2);
@@ -59,10 +67,10 @@
     pointer-events: none;
     opacity: 0;
     transition: opacity 0.5s; }
-  .Chat.is-user-msg:hover .delete {
-    pointer-events: unset;
-    opacity: 1;
-    cursor: pointer; }
-  @media (min-width: 576px) {
-    .Chat {
-      max-width: 60%; } }
+    &.is-user-msg:hover .delete {
+      pointer-events: unset;
+      opacity: 1;
+      cursor: pointer; }
+      @media (min-width: 576px) {
+        max-width: 60%; } 
+}
